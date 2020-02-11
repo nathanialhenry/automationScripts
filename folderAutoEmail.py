@@ -20,6 +20,7 @@ slack_token = args.token
 slack_channel = args.channel
 slack_bot_name = args.bot
 
+# create slack function
 def post_message_to_slack(text, blocks = None):
     return requests.post('https://slack.com/api/chat.postMessage', {
         'token': slack_token,
@@ -29,6 +30,7 @@ def post_message_to_slack(text, blocks = None):
         'blocks': json.dumps(blocks) if blocks else None
     }).json()	
 
+# create observer class
 class OnMyWatch:
     # Set the directory on watch
     watchDirectory = args.path
@@ -49,7 +51,7 @@ class OnMyWatch:
 
         self.observer.join()
 
-
+# creates event handler class
 class Handler(FileSystemEventHandler):
 
     @staticmethod
@@ -66,6 +68,7 @@ class Handler(FileSystemEventHandler):
             # Event is modified, you can process it now
             slack_info = "This is a BOT: I have detected {0} has been modified in the Share Folder used by QV (most likely a build). You can find this added file/folder here: {1}".format(event.src_path, watchDirectory)
             post_message_to_slack(slack_info)
+
 
 if __name__ == '__main__':
     watch = OnMyWatch()

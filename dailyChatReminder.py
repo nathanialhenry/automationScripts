@@ -3,7 +3,7 @@ import json
 import time
 import argparse
 
-# Get Argument for SLACK Token
+# Get Arguments
 parser = argparse.ArgumentParser(description="needed for copying the slack token")
 parser.add_argument("--token", type=str, help="copy your slack token here")
 parser.add_argument("--channel", type=str, help="copy your slack channel here")
@@ -16,6 +16,7 @@ slack_token = args.token
 slack_channel = args.channel
 slack_bot_name = args.bot
 
+# create slack function
 def post_message_to_slack(text, blocks = None):
     return requests.post('https://slack.com/api/chat.postMessage', {
         'token': slack_token,
@@ -26,6 +27,6 @@ def post_message_to_slack(text, blocks = None):
     }).json()	
 
 
-
+# create slack message and post to slack
 slack_info = "I am a Bot: Is there anything that needs to be handed off or completed today? "
 post_message_to_slack(slack_info)
