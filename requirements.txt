@@ -1,0 +1,4 @@
+watchdog
+selenium
+chromedriver
+requests
